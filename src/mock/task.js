@@ -23,11 +23,42 @@ const generateType = () => {
 
   return types[randomIndex];
 };
+const generateDestination = () => {
+  const cities = [
+    'New-York',
+    'Los-Angeles',
+    'Melbourne',
+    'Sydney',
+    'Chicago',
+    'Tokyo',
+    'Singapore',
+    'Dubai',
+    'Barcelona',
+    'Madrid',
+  ];
 
+  const randomIndex = getRandomInteger(0, cities.length - 1);
+
+  return cities[randomIndex];
+};
+
+const generateDescription = () => {
+  const descriptions = [
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    'Cras aliquet varius magna, non porta ligula feugiat eget.',
+    'Fusce tristique felis at fermentum pharetra.',
+    'Aliquam id orci ut lectus varius viverra.',
+    'Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.',
+  ];
+
+  const randomIndex = getRandomInteger(0, descriptions.length - 1);
+
+  return descriptions[randomIndex];
+};
 //Написать функцию, которая возвращает структура данных для точки маршрут
 const generatePoint = () => ({
   type: generateType(),
-  destination: 'New-York',
+  destination: generateDestination(),
   offers: [
     {
       title: 'Choose meal',
@@ -40,8 +71,8 @@ const generatePoint = () => ({
   ],
   info: [
     {
-      description: 'Chamonix parliament building',
-      src: 'http://picsum.photos/300/200?r=0.0762563005163317',
+      description: generateDescription(),
+      src: `http://picsum.photos/248/152?r=${getRandomInteger()}`,
     },
   ],
   basePrice: 1100,
