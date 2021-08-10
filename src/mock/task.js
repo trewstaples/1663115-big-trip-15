@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 
-//Функция для генерации случайного числа
 const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -85,24 +84,6 @@ const generateType = () => {
   return types[randomIndex];
 };
 
-//Написать функцию, которая возвращает структура данных для точки маршрут
-// const generatePoint = (index) => ({
-//   basePrice: getRandomInteger(20, 600),
-//   dateFrom: generateDateFrom(),
-//   dateTo: generateDateT0(),
-//   destination: generateDestination(),
-//   id: index + 1,
-//   info: [
-//     {
-//       description: generateDescription(),
-//       src: `http://picsum.photos/248/152?r=${getRandomInteger(0, 4)}`,
-//     },
-//   ],
-//   isFavorite: Boolean(getRandomInteger(0, 1)),
-//   offers: generateOffers(),
-//   type: generateType(),
-// });
-
 const generatePoint = (index) => {
   const dateFrom = generateDateFrom();
   const dateTo = generateDateT0();
@@ -123,4 +104,3 @@ const generatePoint = (index) => {
     type: generateType(),
   };
 };
-console.log(generatePoint());
