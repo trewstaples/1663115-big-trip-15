@@ -2,8 +2,13 @@ import { createTripInfoTemplate } from './view/trip-info.js';
 import { createSiteMenuTemplate } from './view/site-menu.js';
 import { createFiltersTemplate } from './view/filters.js';
 import { createTripSortTemplate } from './view/trip-sort.js';
-import { createTripItemsTemplate } from './view/trip-items.js';
+import { createTripPointTemplate } from './view/trip-point.js';
 import { createEventEditTemplate } from './view/event-edit.js';
+import { generatePoint } from './mock/point.js';
+
+const POINT_COUNT = 20;
+
+const points = new Array(POINT_COUNT).fill().map(generatePoint);
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -24,7 +29,9 @@ const pageBody = document.querySelector('.page-body__page-main');
 const tripEvents = pageBody.querySelector('.trip-events');
 render(tripEvents, createTripSortTemplate(), 'beforeend');
 
-render(tripEvents, createTripItemsTemplate(), 'beforeend');
+for (let i = 0; i < POINT_COUNT; i++) {
+  render(tripEvents, createTripPointTemplate(points[i]), 'beforeend');
+}
 
 const tripEventsList = tripEvents.querySelector('.trip-events__list');
 render(tripEventsList, createEventEditTemplate(), 'afterbegin');
