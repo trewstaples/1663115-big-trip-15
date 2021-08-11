@@ -2,9 +2,9 @@ import { createTripInfoTemplate } from './view/trip-info.js';
 import { createSiteMenuTemplate } from './view/site-menu.js';
 import { createFiltersTemplate } from './view/filters.js';
 import { createTripSortTemplate } from './view/trip-sort.js';
-import { createTripPointTemplate } from './view/trip-point.js';
+import { createTripPointTemplate } from './view/points-view.js';
 import { createEventEditTemplate } from './view/event-edit.js';
-import { generatePoint } from './mock/point.js';
+import { generatePoint } from './mock/points-mock.js';
 
 const POINT_COUNT = 20;
 

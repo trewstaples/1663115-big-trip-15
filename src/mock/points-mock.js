@@ -8,9 +8,33 @@ const getRandomInteger = (a = 0, b = 1) => {
 };
 getRandomInteger;
 
-const generateDateFrom = () => dayjs().startOf('hour').toDate();
-const daysGap = getRandomInteger(1, 30);
-const generateDateT0 = () => dayjs().add(daysGap, 'day').toDate();
+const generateDateFrom = () => {
+  const maxDaysGap = 10;
+  const daysGap = getRandomInteger(-maxDaysGap, maxDaysGap);
+  const maxHoursGap = 24;
+  const hoursGap = getRandomInteger(-maxHoursGap, maxHoursGap);
+  const maxMinutesGap = 60;
+  const minutesGap = getRandomInteger(-maxMinutesGap, maxMinutesGap);
+
+  return dayjs().add(daysGap, 'day').add(hoursGap, 'hour').add(minutesGap, 'minute').toDate();
+};
+
+const generateDateTo = (dateFrom) => {
+  const maxHoursGap = 4;
+  const hoursGap = getRandomInteger(2, maxHoursGap);
+  const maxMinutesGap = 60;
+  const minutesGap = getRandomInteger(-maxMinutesGap, maxMinutesGap);
+
+  return dayjs(dateFrom).add(hoursGap, 'hour').add(minutesGap, 'minute').toDate();
+};
+// const date1 = dayjs('2019-01-25');
+// const date2 = dayjs('2018-06-05');
+// dateFrom.diff(dateTo, 'hour')
+const generateDuration = (dateFrom, dateTo) => {
+  const date1 = dayjs(dateFrom);
+  const date2 = dayjs(dateTo);
+  return date2.diff(date1, 'minute');
+};
 
 const generateDestination = () => {
   const cities = [
@@ -86,12 +110,15 @@ const generateType = () => {
 
 const generatePoint = (index) => {
   const dateFrom = generateDateFrom();
-  const dateTo = generateDateT0();
+  const dateTo = generateDateTo(dateFrom);
+  const duration = generateDuration(dateFrom, dateTo);
+
   return {
     basePrice: getRandomInteger(20, 600),
     dateFrom,
     dateTo,
     destination: generateDestination(),
+    duration,
     id: index + 1,
     info: [
       {
@@ -105,4 +132,4 @@ const generatePoint = (index) => {
   };
 };
 
-export { generatePoint };
+export { generatePoint, getRandomInteger };
