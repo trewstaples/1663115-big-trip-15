@@ -120,12 +120,8 @@ const generatePoint = (index) => {
     destination: generateDestination(),
     duration,
     id: index + 1,
-    info: [
-      {
-        description: generateDescription(),
-        src: `http://picsum.photos/248/152?r=${getRandomInteger(0, 4)}`,
-      },
-    ],
+    description: generateDescription(),
+    src: `http://picsum.photos/248/152?r=${getRandomInteger(0, 4)}`,
     isFavorite: Boolean(getRandomInteger(0, 1)),
     offers: generateOffers(),
     type: generateType(),

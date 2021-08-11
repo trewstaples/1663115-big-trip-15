@@ -34,4 +34,6 @@ for (let i = 0; i < POINT_COUNT; i++) {
 }
 
 const tripEventsList = tripEvents.querySelector('.trip-events__list');
-render(tripEventsList, createEventEditTemplate(), 'afterbegin');
+for (let j = 0; j < 1; j++) {
+  render(tripEventsList, createEventEditTemplate(points[j]), 'afterbegin');
+}
