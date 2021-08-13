@@ -1,15 +1,16 @@
-import dayjs from 'dayjs';
-import { getRandomInteger, formatToFullDate, formatToMonthAndDay, formatToHoursAndMin, getDuration } from '../utils.js';
+import { formatToFullDate, formatToMonthAndDay, formatToHoursAndMin, getDuration, makeTemplateFromOffersArray } from '../utils.js';
 
 export const createTripPointTemplate = (points) => {
   const { basePrice, dateFrom, dateTo, destination, isFavorite, offers, type } = points;
 
-  const isSpecial = Boolean(getRandomInteger(0, 1));
-  const offerTitle = offers.title;
-  const offerPrice = offers.price;
-  const offerClassName = isSpecial ? 'visually-hidden' : '';
-
   const favoriteClassName = isFavorite ? 'event__favorite-btn--active' : 'event__favorite-btn';
+
+  const createOfferTemplate = (offer) =>
+    `<li class="event__offer">
+      <span class="event__offer-title">${offer.title}</span>
+      &plus;&euro;&nbsp;
+      <span class="event__offer-price">${offer.price}</span>
+    </li>`;
 
   return `<ul class="trip-events__list">
     <li class="trip-events__item">
@@ -31,12 +32,8 @@ export const createTripPointTemplate = (points) => {
           &euro;&nbsp;<span class="event__price-value">${basePrice}</span>
         </p>
         <h4 class="visually-hidden">Offers:</h4>
-        <ul class="event__selected-offers ${offerClassName} ">
-          <li class="event__offer">
-            <span class="event__offer-title">${offerTitle}</span>
-            &plus;&euro;&nbsp;
-            <span class="event__offer-price">${offerPrice}</span>
-          </li>
+        <ul class="event__selected-offers">
+        ${makeTemplateFromOffersArray(offers, createOfferTemplate)}
         </ul>
         <button class="event__favorite-btn ${favoriteClassName}" type="button">
           <span class="visually-hidden">Add to favorite</span>

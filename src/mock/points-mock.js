@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { getRandomInteger, formatToFullDateAndTime, generateType, generateOffersByType } from '../utils.js';
+import { getRandomInteger, formatToFullDateAndTime, generateType, generateRandomOffersList } from '../utils.js';
 import { CITIES, DESCRIPTIONS } from '../consts.js';
 
 const MIX_BASE_PRICE = 20;
@@ -26,6 +26,7 @@ const generatePictures = (amount) =>
 const generatePoint = (index) => {
   const dateFrom = generateDateFrom();
   const dateTo = dateFrom.add(getRandomInteger(MIN_MINUTES_GAP, MAX_MINUTES_GAP), 'minute');
+  const type = generateType();
 
   return {
     basePrice: getRandomInteger(MIX_BASE_PRICE, MAX_BASE_PRICE),
@@ -38,8 +39,8 @@ const generatePoint = (index) => {
     },
     id: index + 1,
     isFavorite: Boolean(getRandomInteger()),
-    offers: generateOffersByType(),
-    type: generateType(),
+    offers: generateRandomOffersList(type),
+    type,
   };
 };
 

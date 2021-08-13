@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { POINT_TYPES } from './consts.js';
+import { POINT_TYPES, OffersPriceList } from './consts.js';
 
 const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -20,30 +20,45 @@ const generateType = () => {
   return POINT_TYPES[randomIndex];
 };
 
-const generateOffersByType = () => {
-  const offers = [
-    {
-      title: 'Choose meal',
-      price: 180,
-    },
-    {
-      title: 'Upgrade to comfort class',
-      price: 50,
-    },
-    {
-      title: 'Choose seats',
-      price: '100',
-    },
-  ];
-
-  const randomIndex = getRandomInteger(0, offers.length - 1);
-
-  return offers[randomIndex];
+const generateOffersListByType = (eventType) => {
+  if (eventType in OffersPriceList) {
+    return Object.entries(OffersPriceList[eventType]).map((offer) => ({
+      title: offer[0],
+      price: offer[1],
+    }));
+  }
+  return [];
 };
+
+const generateRandomList = (min = 0, max = 1, length) => {
+  const list = [];
+
+  while (list.length !== length) {
+    const number = getRandomInteger(min, max);
+    if (!list.includes(number)) {
+      list.push(number);
+    }
+  }
+  return list;
+};
+
+const generateRandomOffersList = (type) => {
+  const offers = generateOffersListByType(type);
+  if (!offers.length) {
+    return;
+  }
+
+  const randomOffersList = generateRandomList(0, offers.length - 1, getRandomInteger(0, offers.length - 1));
+  if (randomOffersList.length) {
+    return randomOffersList.map((integer) => offers[integer]);
+  }
+};
+
+const makeTemplateFromOffersArray = (items = [], cb) => items.map((item) => cb(item)).join('');
+
 const MILLISECONDS_IN_DAY = 86400000;
 const MILLISECONDS_IN_HOUR = 3600000;
 const MILLISECONDS_IN_MINUTE = 60000;
-
 const DURATION_DAY = 1;
 
 const getDuration = (from, to) => {
@@ -69,6 +84,8 @@ export {
   formatToFullDate,
   formatToHoursAndMin,
   generateType,
-  generateOffersByType,
+  generateOffersListByType,
+  makeTemplateFromOffersArray,
+  generateRandomOffersList,
   getDuration,
 };
