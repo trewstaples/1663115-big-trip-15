@@ -6,7 +6,7 @@ import { createTripPointTemplate } from './view/points-view.js';
 import { createEventEditTemplate } from './view/event-edit.js';
 import { generatePoint } from './mock/points-mock.js';
 
-const POINT_COUNT = 20;
+const POINT_COUNT = 3;
 
 const points = new Array(POINT_COUNT).fill().map(generatePoint);
 
@@ -29,11 +29,9 @@ const pageBody = document.querySelector('.page-body__page-main');
 const tripEvents = pageBody.querySelector('.trip-events');
 render(tripEvents, createTripSortTemplate(), 'beforeend');
 
-for (let i = 0; i < POINT_COUNT; i++) {
+for (let i = 1; i < POINT_COUNT; i++) {
   render(tripEvents, createTripPointTemplate(points[i]), 'beforeend');
 }
 
 const tripEventsList = tripEvents.querySelector('.trip-events__list');
-for (let j = 0; j < 1; j++) {
-  render(tripEventsList, createEventEditTemplate(points[j]), 'afterbegin');
-}
+render(tripEventsList, createEventEditTemplate(points[0]), 'afterbegin');

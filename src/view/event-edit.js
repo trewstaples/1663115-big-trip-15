@@ -4,6 +4,9 @@ import { getRandomInteger } from '../mock/points-mock.js';
 export const createEventEditTemplate = (points) => {
   const { basePrice, dateFrom, dateTo, destination, description, offers, type } = points;
 
+  // const isDate = Boolean(getRandomInteger(0, 1));
+  // const newDate = isDate ? dateFrom : null;
+
   const startTime = dayjs(dateFrom).format('DD:MM:YY HH:mm');
   const endTime = dayjs(dateTo).format('DD:MM:YY HH:mm');
 

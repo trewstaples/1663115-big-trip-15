@@ -1,12 +1,8 @@
 import dayjs from 'dayjs';
-import { getRandomInteger } from '../mock/points-mock.js';
+import { getRandomInteger, formatToFullDate, formatToMonthAndDay, formatToHoursAndMin } from '../utils.js';
 
 export const createTripPointTemplate = (points) => {
   const { basePrice, dateFrom, dateTo, destination, duration, isFavorite, offers, type } = points;
-
-  const eventDay = dayjs(dateFrom).format('MMM D');
-  const startTime = dayjs(dateFrom).format('HH:mm');
-  const endTime = dayjs(dateTo).format('HH:mm');
 
   const isSpecial = Boolean(getRandomInteger(0, 1));
   const offerTitle = offers.title;
@@ -15,19 +11,19 @@ export const createTripPointTemplate = (points) => {
 
   const favoriteClassName = isFavorite ? 'event__favorite-btn--active' : '';
 
-  return ` <ul class="trip-events__list">
+  return `<ul class="trip-events__list">
     <li class="trip-events__item">
       <div class="event">
-        <time class="event__date" datetime="2019-03-18">${eventDay}</time>
+      <time class="event__date" datetime="${formatToFullDate(dateFrom)}">${formatToMonthAndDay(dateFrom)}</time>
         <div class="event__type">
           <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
         </div>
         <h3 class="event__title">${type} ${destination}</h3>
         <div class="event__schedule">
           <p class="event__time">
-            <time class="event__start-time" datetime="${startTime}"> ${startTime} </time>
+            <time class="event__start-time" datetime="${dateFrom}"> ${formatToHoursAndMin(dateFrom)} </time>
             &mdash;
-            <time class="event__end-time" datetime="2019-03-18T11:00">${endTime}</time>
+            <time class="event__end-time" datetime="${dateTo}">${formatToHoursAndMin(dateTo)}</time>
           </p>
           <p class="event__duration">${duration}</p>
         </div>
