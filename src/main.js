@@ -6,7 +6,7 @@ import { createTripPointTemplate } from './view/points-view.js';
 import { createEventEditTemplate } from './view/event-edit.js';
 import { generatePoint } from './mock/points-mock.js';
 
-const POINT_COUNT = 3;
+const POINT_COUNT = 20;
 
 const points = new Array(POINT_COUNT).fill().map(generatePoint);
 

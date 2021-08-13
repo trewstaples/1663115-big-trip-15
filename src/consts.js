@@ -8,4 +8,6 @@ const DESCRIPTIONS = [
   'Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.',
 ];
 
-export { CITIES, DESCRIPTIONS };
+const POINT_TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
+
+export { CITIES, DESCRIPTIONS, POINT_TYPES };

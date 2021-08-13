@@ -1,15 +1,15 @@
 import dayjs from 'dayjs';
-import { getRandomInteger, formatToFullDate, formatToMonthAndDay, formatToHoursAndMin } from '../utils.js';
+import { getRandomInteger, formatToFullDate, formatToMonthAndDay, formatToHoursAndMin, getDuration } from '../utils.js';
 
 export const createTripPointTemplate = (points) => {
-  const { basePrice, dateFrom, dateTo, destination, duration, isFavorite, offers, type } = points;
+  const { basePrice, dateFrom, dateTo, destination, isFavorite, offers, type } = points;
 
   const isSpecial = Boolean(getRandomInteger(0, 1));
   const offerTitle = offers.title;
   const offerPrice = offers.price;
   const offerClassName = isSpecial ? 'visually-hidden' : '';
 
-  const favoriteClassName = isFavorite ? 'event__favorite-btn--active' : '';
+  const favoriteClassName = isFavorite ? 'event__favorite-btn--active' : 'event__favorite-btn';
 
   return `<ul class="trip-events__list">
     <li class="trip-events__item">
@@ -25,7 +25,7 @@ export const createTripPointTemplate = (points) => {
             &mdash;
             <time class="event__end-time" datetime="${dateTo}">${formatToHoursAndMin(dateTo)}</time>
           </p>
-          <p class="event__duration">${duration}</p>
+          <p class="event__duration">${getDuration(dateFrom, dateTo)}</p>
         </div>
         <p class="event__price">
           &euro;&nbsp;<span class="event__price-value">${basePrice}</span>
