@@ -1,8 +1,11 @@
 import dayjs from 'dayjs';
 import { getRandomInteger, formatToFullDateAndTime } from '../utils.js';
+import { CITIES, DESCRIPTIONS } from '../consts.js';
 
 const MIX_BASE_PRICE = 20;
 const MAX_BASE_PRICE = 600;
+const MIN_PICTURES_VALUE = 1;
+const MAX_PICTURES_VALUE = 6;
 const MIN_MINUTES_GAP = 30;
 const MAX_MINUTES_GAP = 1440;
 const MAX_DAYS_GAP = 7;
@@ -18,27 +21,7 @@ const generateDuration = (dateFrom, dateTo) => {
   return date2.diff(date1, 'minute');
 };
 
-const generateDestination = () => {
-  const cities = ['New-York', 'Los-Angeles', 'Melbourne', 'Sydney', 'Chicago', 'Tokyo', 'Singapore', 'Dubai', 'Barcelona', 'Madrid'];
-
-  const randomIndex = getRandomInteger(0, cities.length - 1);
-
-  return cities[randomIndex];
-};
-
-const generateDescription = () => {
-  const descriptions = [
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    'Cras aliquet varius magna, non porta ligula feugiat eget.',
-    'Fusce tristique felis at fermentum pharetra.',
-    'Aliquam id orci ut lectus varius viverra.',
-    'Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.',
-  ];
-
-  const randomIndex = getRandomInteger(0, descriptions.length - 1);
-
-  return descriptions[randomIndex];
-};
+const generateDestinationValue = (consts) => consts[getRandomInteger(0, consts.length - 1)];
 
 const generateOffers = () => {
   const offers = [
@@ -61,6 +44,12 @@ const generateOffers = () => {
   return offers[randomIndex];
 };
 
+const generatePictures = (amount) =>
+  new Array(amount).fill(null).map(() => ({
+    src: `http://picsum.photos/248/152?r=${Math.random()}`,
+    description: 'Picture description',
+  }));
+
 const generateType = () => {
   const types = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
 
@@ -78,11 +67,13 @@ const generatePoint = (index) => {
     basePrice: getRandomInteger(MIX_BASE_PRICE, MAX_BASE_PRICE),
     dateFrom: formatToFullDateAndTime(dateFrom),
     dateTo: formatToFullDateAndTime(dateTo),
-    destination: generateDestination(),
+    destination: {
+      description: generateDestinationValue(DESCRIPTIONS),
+      name: generateDestinationValue(CITIES),
+      pictures: generatePictures(getRandomInteger(MIN_PICTURES_VALUE, MAX_PICTURES_VALUE)),
+    },
     duration,
     id: index + 1,
-    description: generateDescription(),
-    src: `http://picsum.photos/248/152?r=${getRandomInteger(0, 4)}`,
     isFavorite: Boolean(getRandomInteger(0, 1)),
     offers: generateOffers(),
     type: generateType(),
