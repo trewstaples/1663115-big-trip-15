@@ -1,18 +1,18 @@
-import { formatToFullDate, formatToMonthAndDay, formatToHoursAndMin, getDuration, makeTemplateFromOffersArray } from '../utils.js';
+import { formatToFullDate, formatToMonthAndDay, formatToHoursAndMin, getDuration, createTemplateFromItemsArray } from '../utils.js';
 
-export const createTripPointTemplate = (points) => {
-  const { basePrice, dateFrom, dateTo, destination, isFavorite, offers, type } = points;
-
-  const favoriteClassName = isFavorite ? 'event__favorite-btn--active' : 'event__favorite-btn';
-
-  const createOfferTemplate = (offer) =>
-    `<li class="event__offer">
+const createOfferTemplate = (offer) =>
+  `<li class="event__offer">
       <span class="event__offer-title">${offer.title}</span>
       &plus;&euro;&nbsp;
       <span class="event__offer-price">${offer.price}</span>
     </li>`;
 
-  return `<ul class="trip-events__list">
+const createTripPointTemplate = (points) => {
+  const { basePrice, dateFrom, dateTo, destination, isFavorite, offers, type } = points;
+
+  const favoriteClassName = isFavorite ? 'event__favorite-btn--active' : 'event__favorite-btn';
+
+  return `
     <li class="trip-events__item">
       <div class="event">
       <time class="event__date" datetime="${formatToFullDate(dateFrom)}">${formatToMonthAndDay(dateFrom)}</time>
@@ -33,7 +33,7 @@ export const createTripPointTemplate = (points) => {
         </p>
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-        ${makeTemplateFromOffersArray(offers, createOfferTemplate)}
+        ${createTemplateFromItemsArray(offers, createOfferTemplate)}
         </ul>
         <button class="event__favorite-btn ${favoriteClassName}" type="button">
           <span class="visually-hidden">Add to favorite</span>
@@ -45,6 +45,7 @@ export const createTripPointTemplate = (points) => {
           <span class="visually-hidden">Open event</span>
         </button>
       </div>
-    </li>
-`;
+    </li>`;
 };
+
+export { createTripPointTemplate };
