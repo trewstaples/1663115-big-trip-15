@@ -1,6 +1,6 @@
 import { createTemplateFromItemsArray } from '../utils.js';
 
-const filterConditions = {
+const FilterConditions = {
   everything: {
     value: 'everything',
     isChecked: true,
@@ -16,7 +16,7 @@ const filterConditions = {
 };
 
 const createFilterTemplate = (filterName) => {
-  const { value, isChecked } = filterConditions[filterName];
+  const { value, isChecked } = FilterConditions[filterName];
 
   return `<div class="trip-filters__filter">
              <input
@@ -38,7 +38,7 @@ const getFiltersTemplate = (filtersObject) => {
 
 const createFiltersFormTemplate = () =>
   `<form class="trip-filters" action="#" method="get">
-      ${getFiltersTemplate(filterConditions)}
+      ${getFiltersTemplate(FilterConditions)}
       <button class="visually-hidden" type="submit">Accept filter</button>
     </form>`;
 

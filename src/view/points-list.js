@@ -1,5 +1,5 @@
 import { generateEventType } from '../utils.js';
-import { generatePoint } from '../mock/points-mock.js';
+import { generatePoint } from '../mock/points.js';
 import dayjs from 'dayjs';
 
 const createPointsListTemplate = () => `<ul class="trip-events__list">

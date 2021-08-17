@@ -65,14 +65,12 @@ const createTemplateFromItemsArray = (items = [], cb) => items.map((item) => cb(
 const getDuration = (from, to) => {
   let duration = dayjs(to).diff(dayjs(from), 'millisecond');
 
-  let formatString = '';
+  let formatString = 'mm[M]';
 
   if (duration >= MILLISECONDS_IN_DAY) {
     formatString = 'DD[D] HH[H] mm[M]';
   } else if (duration >= MILLISECONDS_IN_HOUR) {
     formatString = 'HH[H] mm[M]';
-  } else {
-    formatString = 'mm[M]';
   }
   duration = duration + new Date(duration).getTimezoneOffset() * MILLISECONDS_IN_MINUTE;
   return dayjs(duration).subtract(DURATION_DAY, 'day').format(formatString);

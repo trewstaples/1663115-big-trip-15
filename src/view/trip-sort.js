@@ -1,6 +1,6 @@
 import { createTemplateFromItemsArray } from '../utils.js';
 
-const sortConditions = {
+const SortConditions = {
   day: {
     value: 'day',
     isChecked: true,
@@ -29,7 +29,7 @@ const sortConditions = {
 };
 
 const createSortItemTemplate = (condition) => {
-  const { value, isChecked, isDisabled } = sortConditions[condition];
+  const { value, isChecked, isDisabled } = SortConditions[condition];
 
   return `<div class="trip-sort__item trip-sort__item--${value}">
             <input
@@ -52,7 +52,7 @@ const createSortConditionsTemplate = (sortObject) => {
 
 const createSortFormTemplate = () =>
   `<form class="trip-events__trip-sort trip-sort" action="#" method="get">
-      ${createSortConditionsTemplate(sortConditions)}
+      ${createSortConditionsTemplate(SortConditions)}
    </form>`;
 
 export { createSortFormTemplate };

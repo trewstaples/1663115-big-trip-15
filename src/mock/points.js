@@ -15,7 +15,7 @@ const generateDateFrom = () => {
   return dayjs().add(daysGap, 'day');
 };
 
-const generateDestinationValue = (consts) => consts[getRandomInteger(0, consts.length - 1)];
+const generateDestinationValue = (array) => array[getRandomInteger(0, array.length - 1)];
 
 const generatePictures = (amount) =>
   new Array(amount).fill(null).map(() => ({
