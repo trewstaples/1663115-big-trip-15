@@ -1,4 +1,4 @@
-import { formatToMonthAndDay } from '../utils.js';
+import { formatToMonthAndDay, createElement } from '../utils.js';
 
 const countTotalBasePrice = (points) => points.reduce((total, point) => total + point.basePrice, 0);
 
@@ -40,4 +40,27 @@ const createTripInfoTemplate = (points) =>
   </p>
 </section> `;
 
-export { createTripInfoTemplate };
+class TripInfo {
+  constructor(points) {
+    this._infos = points;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createTripInfoTemplate(this._infos);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export default TripInfo;

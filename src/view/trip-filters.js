@@ -1,4 +1,4 @@
-import { createTemplateFromItemsArray } from '../utils.js';
+import { createTemplateFromItemsArray, createElement } from '../utils.js';
 
 const FilterConditions = {
   everything: {
@@ -42,4 +42,26 @@ const createFiltersFormTemplate = () =>
       <button class="visually-hidden" type="submit">Accept filter</button>
     </form>`;
 
-export { createFiltersFormTemplate };
+class TripFilters {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFiltersFormTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export default TripFilters;

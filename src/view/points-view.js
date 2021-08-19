@@ -1,4 +1,4 @@
-import { formatToFullDate, formatToMonthAndDay, formatToHoursAndMin, getDuration, createTemplateFromItemsArray } from '../utils.js';
+import { formatToFullDate, formatToMonthAndDay, formatToHoursAndMin, getDuration, createTemplateFromItemsArray, createElement } from '../utils.js';
 
 const createOfferTemplate = (offer) =>
   `<li class="event__offer">
@@ -48,4 +48,26 @@ const createTripPointTemplate = (points) => {
     </li>`;
 };
 
-export { createTripPointTemplate };
+class TripPoints {
+  constructor(points) {
+    this._points = points;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createTripPointTemplate(this._points);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+export default TripPoints;

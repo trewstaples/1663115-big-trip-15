@@ -1,10 +1,11 @@
-import { createTripInfoTemplate } from './view/trip-info.js';
-import { SiteMenuView } from './view/site-menu.js';
-import { createFiltersFormTemplate } from './view/trip-filters.js';
-import { createSortFormTemplate } from './view/trip-sort.js';
-import { createPointsListTemplate, createPointsList } from './view/points-list.js';
+import TripInfoView from './view/trip-info.js';
+import SiteMenuView from './view/site-menu.js';
+import TripFiltersView from './view/trip-filters.js';
+import TripSortView from './view/trip-sort.js';
+import TripPointsListView from './view/points-list.js';
+import { createPointsList } from './view/points-list.js';
+import TripEventEditView from './view/event-edit.js';
 import { createTripPointTemplate } from './view/points-view.js';
-import { createEditEventFormTemplate } from './view/event-edit.js';
 import { createTemplateFromItemsArray, renderTemplate, renderElement, RenderPosition } from './utils.js';
 
 const POINTS_COUNT = 20;
@@ -18,16 +19,16 @@ const tripEvents = document.querySelector('.trip-events');
 
 tripEvents.classList.toggle('visually-hidden', !points.length);
 
-renderTemplate(tripMain, createTripInfoTemplate(points), 'afterbegin');
+renderElement(tripMain, new TripInfoView(points).getElement(), RenderPosition.AFTERBEGIN);
 renderElement(tripNavigation, new SiteMenuView().getElement(), RenderPosition.BEFOREEND);
-renderTemplate(tripFilters, createFiltersFormTemplate(), 'beforeend');
-renderTemplate(tripEvents, createSortFormTemplate(), 'beforeend');
-renderTemplate(tripEvents, createPointsListTemplate(), 'beforeend');
+renderElement(tripFilters, new TripFiltersView().getElement(), RenderPosition.BEFOREEND);
+renderElement(tripEvents, new TripSortView().getElement(), RenderPosition.BEFOREEND);
+renderElement(tripEvents, new TripPointsListView().getElement(), RenderPosition.BEFOREEND);
 
 const tripEventsList = tripEvents.querySelector('.trip-events__list');
 
 const renderPointsList = (first, ...rest) => {
-  renderTemplate(tripEventsList, createEditEventFormTemplate(first), 'beforeend');
+  renderElement(tripEventsList, new TripEventEditView(first).getElement(), RenderPosition.BEFOREEND);
   renderTemplate(tripEventsList, createTemplateFromItemsArray(rest, createTripPointTemplate), 'beforeend');
 };
 
