@@ -1,4 +1,4 @@
-import { createTemplateFromItemsArray } from './utils.js';
+import { createTemplateFromItemsArray, renderTemplate } from './utils.js';
 import { createTripInfoTemplate } from './view/trip-info.js';
 import { createSiteMenuTemplate } from './view/site-menu.js';
 import { createFiltersFormTemplate } from './view/trip-filters.js';
@@ -11,10 +11,6 @@ const POINTS_COUNT = 20;
 
 const points = createPointsList(POINTS_COUNT);
 
-const render = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
-};
-
 const tripMain = document.querySelector('.trip-main');
 const tripNavigation = tripMain.querySelector('.trip-controls__navigation');
 const tripFilters = tripMain.querySelector('.trip-controls__filters');
@@ -22,17 +18,17 @@ const tripEvents = document.querySelector('.trip-events');
 
 tripEvents.classList.toggle('visually-hidden', !points.length);
 
-render(tripMain, createTripInfoTemplate(points), 'afterbegin');
-render(tripNavigation, createSiteMenuTemplate(), 'beforeend');
-render(tripFilters, createFiltersFormTemplate(), 'beforeend');
-render(tripEvents, createSortFormTemplate(), 'beforeend');
-render(tripEvents, createPointsListTemplate(), 'beforeend');
+renderTemplate(tripMain, createTripInfoTemplate(points), 'afterbegin');
+renderTemplate(tripNavigation, createSiteMenuTemplate(), 'beforeend');
+renderTemplate(tripFilters, createFiltersFormTemplate(), 'beforeend');
+renderTemplate(tripEvents, createSortFormTemplate(), 'beforeend');
+renderTemplate(tripEvents, createPointsListTemplate(), 'beforeend');
 
 const tripEventsList = tripEvents.querySelector('.trip-events__list');
 
 const renderPointsList = (first, ...rest) => {
-  render(tripEventsList, createEditEventFormTemplate(first), 'beforeend');
-  render(tripEventsList, createTemplateFromItemsArray(rest, createTripPointTemplate), 'beforeend');
+  renderTemplate(tripEventsList, createEditEventFormTemplate(first), 'beforeend');
+  renderTemplate(tripEventsList, createTemplateFromItemsArray(rest, createTripPointTemplate), 'beforeend');
 };
 
 renderPointsList(...points);
