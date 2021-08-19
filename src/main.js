@@ -1,11 +1,11 @@
-import { createTemplateFromItemsArray, renderTemplate } from './utils.js';
 import { createTripInfoTemplate } from './view/trip-info.js';
-import { createSiteMenuTemplate } from './view/site-menu.js';
+import { SiteMenuView } from './view/site-menu.js';
 import { createFiltersFormTemplate } from './view/trip-filters.js';
 import { createSortFormTemplate } from './view/trip-sort.js';
 import { createPointsListTemplate, createPointsList } from './view/points-list.js';
 import { createTripPointTemplate } from './view/points-view.js';
 import { createEditEventFormTemplate } from './view/event-edit.js';
+import { createTemplateFromItemsArray, renderTemplate, renderElement, RenderPosition } from './utils.js';
 
 const POINTS_COUNT = 20;
 
@@ -19,7 +19,7 @@ const tripEvents = document.querySelector('.trip-events');
 tripEvents.classList.toggle('visually-hidden', !points.length);
 
 renderTemplate(tripMain, createTripInfoTemplate(points), 'afterbegin');
-renderTemplate(tripNavigation, createSiteMenuTemplate(), 'beforeend');
+renderElement(tripNavigation, new SiteMenuView().getElement(), RenderPosition.BEFOREEND);
 renderTemplate(tripFilters, createFiltersFormTemplate(), 'beforeend');
 renderTemplate(tripEvents, createSortFormTemplate(), 'beforeend');
 renderTemplate(tripEvents, createPointsListTemplate(), 'beforeend');
