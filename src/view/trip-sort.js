@@ -1,4 +1,4 @@
-import { createTemplateFromItemsArray } from '../utils.js';
+import { createTemplateFromItemsArray, createElement } from '../utils.js';
 
 const SortConditions = {
   day: {
@@ -55,4 +55,25 @@ const createSortFormTemplate = () =>
       ${createSortConditionsTemplate(SortConditions)}
    </form>`;
 
-export { createSortFormTemplate };
+class TripSort {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createSortFormTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+export default TripSort;

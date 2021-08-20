@@ -1,4 +1,4 @@
-import { generateEventType } from '../utils.js';
+import { generateEventType, createElement } from '../utils.js';
 import { generatePoint } from '../mock/points.js';
 import dayjs from 'dayjs';
 
@@ -9,4 +9,26 @@ const createPointsList = (pointsCount) => {
   return points.sort((a, b) => dayjs(a.dateFrom) - dayjs(b.dateFrom));
 };
 
-export { createPointsListTemplate, createPointsList };
+class TripPointsList {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createPointsListTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+export { createPointsList };
+export default TripPointsList;

@@ -1,5 +1,5 @@
 import { POINT_TYPES, CITIES } from '../consts.js';
-import { createTemplateFromItemsArray, formatToEditEventFormDatetime, generateOffersListByType } from '../utils.js';
+import { createTemplateFromItemsArray, formatToEditEventFormDatetime, generateOffersListByType, createElement } from '../utils.js';
 
 const destinationClassName = ({ description, pictures } = {}) => (!description && pictures && !pictures.length ? 'visually-hidden' : '');
 const getCheckedOfferTitles = (offers) => offers.map((offer) => offer.title);
@@ -98,6 +98,8 @@ const createEditEventFormTemplate = (point = []) => {
                 </div>
                 <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
                 <button class="event__reset-btn" type="reset">Cancel</button>
+                <button class="event__rollup-btn" type="button">
+                <span class="visually-hidden">Open event</span>
               </header>
               <section class="event__details ${detailsSectionClassName(offers, destination)}">
                 <section class="event__section  event__section--offers ${offersListCLassName(generateOffersListByType(type))}">
@@ -120,4 +122,28 @@ const createEditEventFormTemplate = (point = []) => {
           </li>`;
 };
 
-export { createEditEventFormTemplate };
+class TripEventEdit {
+  constructor(point) {
+    this._edits = point;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEditEventFormTemplate(this._edits);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export default TripEventEdit;
+// export { createEditEventFormTemplate };
