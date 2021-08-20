@@ -33,6 +33,39 @@ const renderPoints = (container, point) => {
   const pointListComponent = new TripPointsView(point);
   const pointEditComponent = new TripEventEditView(point);
 
+  const replaceCardToForm = () => {
+    tripEventsList.replaceChild(pointEditComponent.getElement(), pointListComponent.getElement());
+  };
+
+  const replaceFormToCard = () => {
+    tripEventsList.replaceChild(pointListComponent.getElement(), pointEditComponent.getElement());
+  };
+
+  const onEscKeyDown = (evt) => {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
+      evt.preventDefault();
+      replaceFormToCard();
+      document.removeEventListener('keydown', onEscKeyDown);
+    }
+  };
+
+  pointListComponent
+    .getElement()
+    .querySelector('.event__rollup-btn')
+    .addEventListener('click', () => {
+      replaceCardToForm();
+      document.addEventListener('keydown', onEscKeyDown);
+    });
+
+  pointEditComponent
+    .getElement()
+    .querySelector('form')
+    .addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      replaceFormToCard();
+      document.removeEventListener('keydown', onEscKeyDown);
+    });
+
   render(container, pointListComponent.getElement(), RenderPosition.BEFOREEND);
 };
 
