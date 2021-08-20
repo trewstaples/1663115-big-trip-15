@@ -31,15 +31,15 @@ if (points.length === 0) {
   const tripEventsList = tripEvents.querySelector('.trip-events__list');
 
   const renderPoints = (container, point) => {
-    const pointListComponent = new TripPointsView(point);
-    const pointEditComponent = new TripEventEditView(point);
+    const pointListComponent = new TripPointsView(point).getElement();
+    const pointEditComponent = new TripEventEditView(point).getElement();
 
     const replaceCardToForm = () => {
-      tripEventsList.replaceChild(pointEditComponent.getElement(), pointListComponent.getElement());
+      tripEventsList.replaceChild(pointEditComponent, pointListComponent);
     };
 
     const replaceFormToCard = () => {
-      tripEventsList.replaceChild(pointListComponent.getElement(), pointEditComponent.getElement());
+      tripEventsList.replaceChild(pointListComponent, pointEditComponent);
     };
 
     const onEscKeyDown = (evt) => {
@@ -50,42 +50,30 @@ if (points.length === 0) {
       }
     };
 
-    pointListComponent
-      .getElement()
-      .querySelector('.event__rollup-btn')
-      .addEventListener('click', () => {
-        replaceCardToForm();
-        document.addEventListener('keydown', onEscKeyDown);
-      });
+    pointListComponent.querySelector('.event__rollup-btn').addEventListener('click', () => {
+      replaceCardToForm();
+      document.addEventListener('keydown', onEscKeyDown);
+    });
 
-    pointEditComponent
-      .getElement()
-      .querySelector('form')
-      .addEventListener('submit', (evt) => {
-        evt.preventDefault();
-        replaceFormToCard();
-        document.removeEventListener('keydown', onEscKeyDown);
-      });
+    pointEditComponent.querySelector('form').addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      replaceFormToCard();
+      document.removeEventListener('keydown', onEscKeyDown);
+    });
 
-    pointEditComponent
-      .getElement()
-      .querySelector('.event__reset-btn')
-      .addEventListener('click', (evt) => {
-        evt.preventDefault();
-        replaceFormToCard();
-        document.removeEventListener('keydown', onEscKeyDown);
-      });
+    pointEditComponent.querySelector('.event__reset-btn').addEventListener('click', (evt) => {
+      evt.preventDefault();
+      replaceFormToCard();
+      document.removeEventListener('keydown', onEscKeyDown);
+    });
 
-    pointEditComponent
-      .getElement()
-      .querySelector('.event__rollup-btn')
-      .addEventListener('click', (evt) => {
-        evt.preventDefault();
-        replaceFormToCard();
-        document.removeEventListener('keydown', onEscKeyDown);
-      });
+    pointEditComponent.querySelector('.event__rollup-btn').addEventListener('click', (evt) => {
+      evt.preventDefault();
+      replaceFormToCard();
+      document.removeEventListener('keydown', onEscKeyDown);
+    });
 
-    render(container, pointListComponent.getElement(), RenderPosition.BEFOREEND);
+    render(container, pointListComponent, RenderPosition.BEFOREEND);
   };
 
   for (let i = 0; i < points.length; i++) {
