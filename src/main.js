@@ -31,15 +31,15 @@ if (points.length === 0) {
   const tripEventsList = tripEvents.querySelector('.trip-events__list');
 
   const renderPoints = (container, point) => {
-    const pointListComponent = new TripPointsView(point).getElement();
-    const pointEditComponent = new TripEventEditView(point).getElement();
+    const pointList = new TripPointsView(point).getElement();
+    const pointEdit = new TripEventEditView(point).getElement();
 
     const replaceCardToForm = () => {
-      tripEventsList.replaceChild(pointEditComponent, pointListComponent);
+      tripEventsList.replaceChild(pointEdit, pointList);
     };
 
     const replaceFormToCard = () => {
-      tripEventsList.replaceChild(pointListComponent, pointEditComponent);
+      tripEventsList.replaceChild(pointList, pointEdit);
     };
 
     const onEscKeyDown = (evt) => {
@@ -50,30 +50,30 @@ if (points.length === 0) {
       }
     };
 
-    pointListComponent.querySelector('.event__rollup-btn').addEventListener('click', () => {
+    pointList.querySelector('.event__rollup-btn').addEventListener('click', () => {
       replaceCardToForm();
       document.addEventListener('keydown', onEscKeyDown);
     });
 
-    pointEditComponent.querySelector('form').addEventListener('submit', (evt) => {
+    pointEdit.querySelector('form').addEventListener('submit', (evt) => {
       evt.preventDefault();
       replaceFormToCard();
       document.removeEventListener('keydown', onEscKeyDown);
     });
 
-    pointEditComponent.querySelector('.event__reset-btn').addEventListener('click', (evt) => {
+    pointEdit.querySelector('.event__reset-btn').addEventListener('click', (evt) => {
       evt.preventDefault();
       replaceFormToCard();
       document.removeEventListener('keydown', onEscKeyDown);
     });
 
-    pointEditComponent.querySelector('.event__rollup-btn').addEventListener('click', (evt) => {
+    pointEdit.querySelector('.event__rollup-btn').addEventListener('click', (evt) => {
       evt.preventDefault();
       replaceFormToCard();
       document.removeEventListener('keydown', onEscKeyDown);
     });
 
-    render(container, pointListComponent, RenderPosition.BEFOREEND);
+    render(container, pointList, RenderPosition.BEFOREEND);
   };
 
   for (let i = 0; i < points.length; i++) {
