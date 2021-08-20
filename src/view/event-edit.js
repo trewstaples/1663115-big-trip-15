@@ -1,5 +1,5 @@
 import { POINT_TYPES, CITIES } from '../consts.js';
-import { createTemplateFromItemsArray, formatToEditEventFormDatetime, generateOffersListByType } from '../utils.js';
+import { createTemplateFromItemsArray, formatToEditEventFormDatetime, generateOffersListByType, createElement } from '../utils.js';
 
 const destinationClassName = ({ description, pictures } = {}) => (!description && pictures && !pictures.length ? 'visually-hidden' : '');
 const getCheckedOfferTitles = (offers) => offers.map((offer) => offer.title);
@@ -120,4 +120,28 @@ const createEditEventFormTemplate = (point = []) => {
           </li>`;
 };
 
-export { createEditEventFormTemplate };
+class TripEventEdit {
+  constructor(point) {
+    this._edits = point;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEditEventFormTemplate(this._edits);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+export default TripEventEdit;
+// export { createEditEventFormTemplate };

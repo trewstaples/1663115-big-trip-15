@@ -4,7 +4,7 @@ import TripFiltersView from './view/trip-filters.js';
 import TripSortView from './view/trip-sort.js';
 import TripPointsListView from './view/points-list.js';
 import { createPointsList } from './view/points-list.js';
-import { createEditEventFormTemplate } from './view/event-edit.js';
+import TripEventEditView from './view/event-edit.js';
 import { createTripPointTemplate } from './view/points-view.js';
 import { createTemplateFromItemsArray, renderTemplate, renderElement, RenderPosition } from './utils.js';
 
@@ -28,7 +28,7 @@ renderElement(tripEvents, new TripPointsListView().getElement(), RenderPosition.
 const tripEventsList = tripEvents.querySelector('.trip-events__list');
 
 const renderPointsList = (first, ...rest) => {
-  renderTemplate(tripEventsList, createEditEventFormTemplate(first), 'beforeend');
+  renderElement(tripEventsList, new TripEventEditView(first).getElement(), RenderPosition.BEFOREEND);
   renderTemplate(tripEventsList, createTemplateFromItemsArray(rest, createTripPointTemplate), 'beforeend');
 };
 
