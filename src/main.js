@@ -5,8 +5,8 @@ import TripSortView from './view/trip-sort.js';
 import TripPointsListView from './view/points-list.js';
 import { createPointsList } from './view/points-list.js';
 import TripEventEditView from './view/event-edit.js';
-import { createTripPointTemplate } from './view/points-view.js';
-import { createTemplateFromItemsArray, renderTemplate, renderElement, RenderPosition } from './utils.js';
+import TripPointsView from './view/points-view.js';
+import { renderElement, RenderPosition } from './utils.js';
 
 const POINTS_COUNT = 20;
 
@@ -27,9 +27,8 @@ renderElement(tripEvents, new TripPointsListView().getElement(), RenderPosition.
 
 const tripEventsList = tripEvents.querySelector('.trip-events__list');
 
-const renderPointsList = (first, ...rest) => {
-  renderElement(tripEventsList, new TripEventEditView(first).getElement(), RenderPosition.BEFOREEND);
-  renderTemplate(tripEventsList, createTemplateFromItemsArray(rest, createTripPointTemplate), 'beforeend');
-};
+renderElement(tripEventsList, new TripEventEditView(points[0]).getElement(), RenderPosition.BEFOREEND);
 
-renderPointsList(...points);
+for (let i = 1; i < Math.min(points.length, POINTS_COUNT); i++) {
+  renderElement(tripEventsList, new TripPointsView(points[i]).getElement(), RenderPosition.BEFOREEND);
+}

@@ -92,10 +92,6 @@ const renderElement = (container, element, place) => {
   }
 };
 
-const renderTemplate = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
-};
-
 const createElement = (template) => {
   const newElement = document.createElement('div');
   newElement.innerHTML = template;
@@ -117,6 +113,5 @@ export {
   getDuration,
   RenderPosition,
   renderElement,
-  renderTemplate,
   createElement,
 };
