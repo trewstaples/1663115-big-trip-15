@@ -81,7 +81,7 @@ const RenderPosition = {
   BEFOREEND: 'beforeend',
 };
 
-const renderElement = (container, element, place) => {
+const render = (container, element, place) => {
   switch (place) {
     case RenderPosition.AFTERBEGIN:
       container.prepend(element);
@@ -99,19 +99,4 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-export {
-  getRandomInteger,
-  formatToFullDateAndTime,
-  formatToMonthAndDay,
-  formatToFullDate,
-  formatToHoursAndMin,
-  generateEventType,
-  formatToEditEventFormDatetime,
-  generateOffersListByType,
-  createTemplateFromItemsArray,
-  generateRandomOffersList,
-  getDuration,
-  RenderPosition,
-  renderElement,
-  createElement,
-};
+export { getRandomInteger, formatToFullDateAndTime, formatToMonthAndDay, formatToFullDate, formatToHoursAndMin, generateEventType, formatToEditEventFormDatetime, generateOffersListByType, createTemplateFromItemsArray, generateRandomOffersList, getDuration, RenderPosition, render, createElement };

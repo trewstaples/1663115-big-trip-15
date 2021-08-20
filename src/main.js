@@ -6,7 +6,7 @@ import TripPointsListView from './view/points-list.js';
 import { createPointsList } from './view/points-list.js';
 import TripEventEditView from './view/event-edit.js';
 import TripPointsView from './view/points-view.js';
-import { renderElement, RenderPosition } from './utils.js';
+import { render, RenderPosition } from './utils.js';
 
 const POINTS_COUNT = 20;
 
@@ -19,16 +19,23 @@ const tripEvents = document.querySelector('.trip-events');
 
 tripEvents.classList.toggle('visually-hidden', !points.length);
 
-renderElement(tripMain, new TripInfoView(points).getElement(), RenderPosition.AFTERBEGIN);
-renderElement(tripNavigation, new SiteMenuView().getElement(), RenderPosition.BEFOREEND);
-renderElement(tripFilters, new TripFiltersView().getElement(), RenderPosition.BEFOREEND);
-renderElement(tripEvents, new TripSortView().getElement(), RenderPosition.BEFOREEND);
-renderElement(tripEvents, new TripPointsListView().getElement(), RenderPosition.BEFOREEND);
+render(tripMain, new TripInfoView(points).getElement(), RenderPosition.AFTERBEGIN);
+render(tripNavigation, new SiteMenuView().getElement(), RenderPosition.BEFOREEND);
+render(tripFilters, new TripFiltersView().getElement(), RenderPosition.BEFOREEND);
+render(tripEvents, new TripSortView().getElement(), RenderPosition.BEFOREEND);
+render(tripEvents, new TripPointsListView().getElement(), RenderPosition.BEFOREEND);
 
 const tripEventsList = tripEvents.querySelector('.trip-events__list');
 
-renderElement(tripEventsList, new TripEventEditView(points[0]).getElement(), RenderPosition.BEFOREEND);
+// render(tripEventsList, new TripEventEditView(points[0]).getElement(), RenderPosition.BEFOREEND);
 
-for (let i = 1; i < Math.min(points.length, POINTS_COUNT); i++) {
-  renderElement(tripEventsList, new TripPointsView(points[i]).getElement(), RenderPosition.BEFOREEND);
+const renderPoints = (container, point) => {
+  const pointListComponent = new TripPointsView(point);
+  const pointEditComponent = new TripEventEditView(point);
+
+  render(container, pointListComponent.getElement(), RenderPosition.BEFOREEND);
+};
+
+for (let i = 0; i < points.length; i++) {
+  renderPoints(tripEventsList, points[i]);
 }
