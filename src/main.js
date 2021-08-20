@@ -1,4 +1,4 @@
-import { createTripInfoTemplate } from './view/trip-info.js';
+import TripInfoView from './view/trip-info.js';
 import SiteMenuView from './view/site-menu.js';
 import TripFiltersView from './view/trip-filters.js';
 import TripSortView from './view/trip-sort.js';
@@ -19,7 +19,7 @@ const tripEvents = document.querySelector('.trip-events');
 
 tripEvents.classList.toggle('visually-hidden', !points.length);
 
-renderTemplate(tripMain, createTripInfoTemplate(points), 'afterbegin');
+renderElement(tripMain, new TripInfoView(points).getElement(), RenderPosition.AFTERBEGIN);
 renderElement(tripNavigation, new SiteMenuView().getElement(), RenderPosition.BEFOREEND);
 renderElement(tripFilters, new TripFiltersView().getElement(), RenderPosition.BEFOREEND);
 renderElement(tripEvents, new TripSortView().getElement(), RenderPosition.BEFOREEND);
