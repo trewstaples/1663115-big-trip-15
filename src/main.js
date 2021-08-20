@@ -66,6 +66,24 @@ const renderPoints = (container, point) => {
       document.removeEventListener('keydown', onEscKeyDown);
     });
 
+  pointEditComponent
+    .getElement()
+    .querySelector('.event__reset-btn')
+    .addEventListener('click', (evt) => {
+      evt.preventDefault();
+      replaceFormToCard();
+      document.removeEventListener('keydown', onEscKeyDown);
+    });
+
+  pointEditComponent
+    .getElement()
+    .querySelector('.event__rollup-btn')
+    .addEventListener('click', (evt) => {
+      evt.preventDefault();
+      replaceFormToCard();
+      document.removeEventListener('keydown', onEscKeyDown);
+    });
+
   render(container, pointListComponent.getElement(), RenderPosition.BEFOREEND);
 };
 
