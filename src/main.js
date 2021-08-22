@@ -9,7 +9,7 @@ import TripPointsView from './view/points-view.js';
 import { render, RenderPosition } from './utils.js';
 import NoPointView from './view/no-point.js';
 
-const POINTS_COUNT = 0;
+const POINTS_COUNT = 10;
 
 const points = createPointsList(POINTS_COUNT);
 
