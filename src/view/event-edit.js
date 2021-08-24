@@ -127,10 +127,43 @@ class TripEventEdit extends AbstractView {
   constructor(point) {
     super();
     this._edits = point;
+    this._formSubmitHandler = this._formSubmitHandler.bind(this);
+    this._eventResetHandler = this._eventResetHandler.bind(this);
+    this._eventRollUpHandler = this._eventRollUpHandler.bind(this);
   }
 
   getTemplate() {
     return createEditEventFormTemplate(this._edits);
+  }
+
+  _formSubmitHandler(evt) {
+    evt.preventDefault();
+    this._callback.formSubmit();
+  }
+
+  setFormSubmitHandler(callback) {
+    this._callback.formSubmit = callback;
+    this.getElement().querySelector('form').addEventListener('submit', this._formSubmitHandler);
+  }
+
+  _eventResetHandler(evt) {
+    evt.preventDefault();
+    this._callback.eventReset();
+  }
+
+  setEventResetHandler(callback) {
+    this._callback.eventReset = callback;
+    this.getElement().querySelector('.event__reset-btn').addEventListener('click', this._eventResetHandler);
+  }
+
+  _eventRollUpHandler(evt) {
+    evt.preventDefault();
+    this._callback.eventRollUp();
+  }
+
+  setEventRollUpHandler(callback) {
+    this._callback.eventRollUp = callback;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._eventRollUpHandler);
   }
 }
 
