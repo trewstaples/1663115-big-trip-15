@@ -1,5 +1,6 @@
 import { POINT_TYPES, CITIES } from '../consts.js';
-import { createTemplateFromItemsArray, formatToEditEventFormDatetime, generateOffersListByType, createElement } from '../utils.js';
+import { createTemplateFromItemsArray, formatToEditEventFormDatetime, generateOffersListByType } from '../utils/point.js';
+import AbstractView from './abstract.js';
 
 const destinationClassName = ({ description, pictures } = {}) => (!description && pictures && !pictures.length ? 'visually-hidden' : '');
 const getCheckedOfferTitles = (offers) => offers.map((offer) => offer.title);
@@ -122,28 +123,48 @@ const createEditEventFormTemplate = (point = []) => {
           </li>`;
 };
 
-class TripEventEdit {
+class TripEventEdit extends AbstractView {
   constructor(point) {
+    super();
     this._edits = point;
-    this._element = null;
+    this._formSubmitHandler = this._formSubmitHandler.bind(this);
+    this._eventResetHandler = this._eventResetHandler.bind(this);
+    this._eventRollUpHandler = this._eventRollUpHandler.bind(this);
   }
 
   getTemplate() {
     return createEditEventFormTemplate(this._edits);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  _formSubmitHandler(evt) {
+    evt.preventDefault();
+    this._callback.formSubmit();
   }
 
-  removeElement() {
-    this._element = null;
+  setFormSubmitHandler(callback) {
+    this._callback.formSubmit = callback;
+    this.getElement().querySelector('form').addEventListener('submit', this._formSubmitHandler);
+  }
+
+  _eventResetHandler(evt) {
+    evt.preventDefault();
+    this._callback.eventReset();
+  }
+
+  setEventResetHandler(callback) {
+    this._callback.eventReset = callback;
+    this.getElement().querySelector('.event__reset-btn').addEventListener('click', this._eventResetHandler);
+  }
+
+  _eventRollUpHandler(evt) {
+    evt.preventDefault();
+    this._callback.eventRollUp();
+  }
+
+  setEventRollUpHandler(callback) {
+    this._callback.eventRollUp = callback;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._eventRollUpHandler);
   }
 }
 
 export default TripEventEdit;
-// export { createEditEventFormTemplate };

@@ -1,4 +1,5 @@
-import { createTemplateFromItemsArray, createElement } from '../utils.js';
+import { createTemplateFromItemsArray } from '../utils/point.js';
+import AbstractView from './abstract.js';
 
 const FilterConditions = {
   everything: {
@@ -42,25 +43,9 @@ const createFiltersFormTemplate = () =>
       <button class="visually-hidden" type="submit">Accept filter</button>
     </form>`;
 
-class TripFilters {
-  constructor() {
-    this._element = null;
-  }
-
+class TripFilters extends AbstractView {
   getTemplate() {
     return createFiltersFormTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
 

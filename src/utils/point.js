@@ -1,18 +1,12 @@
 import dayjs from 'dayjs';
-import { POINT_TYPES, OffersPriceList } from './consts.js';
+import { POINT_TYPES, OffersPriceList } from '../consts.js';
+import { getRandomInteger } from './common.js';
+
 
 const MILLISECONDS_IN_DAY = 86400000;
 const MILLISECONDS_IN_HOUR = 3600000;
 const MILLISECONDS_IN_MINUTE = 60000;
 const DURATION_DAY = 1;
-
-const getRandomInteger = (a = 0, b = 1) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-
-  return Math.floor(lower + Math.random() * (upper - lower + 1));
-};
-getRandomInteger;
 
 const formatToFullDateAndTime = (date) => dayjs(date).format('YYYY-MM-DDTHH:mm');
 const formatToFullDate = (date) => dayjs(date).format('YYYY-MM-DD');
@@ -76,27 +70,4 @@ const getDuration = (from, to) => {
   return dayjs(duration).subtract(DURATION_DAY, 'day').format(formatString);
 };
 
-const RenderPosition = {
-  AFTERBEGIN: 'afterbegin',
-  BEFOREEND: 'beforeend',
-};
-
-const render = (container, element, place) => {
-  switch (place) {
-    case RenderPosition.AFTERBEGIN:
-      container.prepend(element);
-      break;
-    case RenderPosition.BEFOREEND:
-      container.append(element);
-      break;
-  }
-};
-
-const createElement = (template) => {
-  const newElement = document.createElement('div');
-  newElement.innerHTML = template;
-
-  return newElement.firstChild;
-};
-
-export { getRandomInteger, formatToFullDateAndTime, formatToMonthAndDay, formatToFullDate, formatToHoursAndMin, generateEventType, formatToEditEventFormDatetime, generateOffersListByType, createTemplateFromItemsArray, generateRandomOffersList, getDuration, RenderPosition, render, createElement };
+export { formatToFullDateAndTime, formatToMonthAndDay, formatToFullDate, formatToHoursAndMin, generateEventType, formatToEditEventFormDatetime, generateOffersListByType, createTemplateFromItemsArray, generateRandomOffersList, getDuration };

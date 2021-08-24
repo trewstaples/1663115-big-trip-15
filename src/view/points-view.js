@@ -1,4 +1,5 @@
-import { formatToFullDate, formatToMonthAndDay, formatToHoursAndMin, getDuration, createTemplateFromItemsArray, createElement } from '../utils.js';
+import { formatToFullDate, formatToMonthAndDay, formatToHoursAndMin, getDuration, createTemplateFromItemsArray } from '../utils/point.js';
+import AbstractView from './abstract.js';
 
 const createOfferTemplate = (offer) =>
   `<li class="event__offer">
@@ -47,27 +48,27 @@ const createTripPointTemplate = (points) => {
     </li>`;
 };
 
-class TripPoints {
+class TripPoints extends AbstractView {
   constructor(points) {
+    super();
     this._points = points;
-    this._element = null;
+    this._editClickHandler = this._editClickHandler.bind(this);
   }
 
   getTemplate() {
     return createTripPointTemplate(this._points);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  _editClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.editClick();
   }
 
-  removeElement() {
-    this._element = null;
+  setEditClickHandler(callback) {
+    this._callback.editClick = callback;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._editClickHandler);
   }
 }
+
 export default TripPoints;
 export { createTripPointTemplate };
