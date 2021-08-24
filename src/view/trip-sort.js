@@ -1,4 +1,4 @@
-import { createTemplateFromItemsArray } from '../utils.js/point.js';
+import { createTemplateFromItemsArray } from '../utils/point.js';
 import AbstractView from './abstract.js';
 
 const SortConditions = {

@@ -6,7 +6,7 @@ import TripPointsListView from './view/points-list.js';
 import { createPointsList } from './view/points-list.js';
 import TripEventEditView from './view/event-edit.js';
 import TripPointsView from './view/points-view.js';
-import { render, RenderPosition } from './utils.js/render.js';
+import { render, RenderPosition } from './utils/render.js';
 import NoPointView from './view/no-point.js';
 
 const POINTS_COUNT = 10;

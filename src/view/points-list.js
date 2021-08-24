@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { generateEventType } from '../utils.js/point.js';
+import { generateEventType } from '../utils/point.js';
 import { generatePoint } from '../mock/points.js';
 import AbstractView from './abstract.js';
 
