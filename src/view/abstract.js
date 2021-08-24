@@ -3,7 +3,7 @@ import { createElement } from '../utils/render.js';
 class Abstract {
   constructor() {
     if (new.target === Abstract) {
-      throw new Error("Can't instantiate Abstract, only concrete one.");
+      throw new Error('Cannot instantiate Abstract, only concrete one.');
     }
 
     this._element = null;
