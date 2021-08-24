@@ -1,6 +1,6 @@
-import { generateEventType } from '../utils.js';
-import { generatePoint } from '../mock/points.js';
 import dayjs from 'dayjs';
+import { generateEventType } from '../utils.js/point.js';
+import { generatePoint } from '../mock/points.js';
 import AbstractView from './abstract.js';
 
 const createPointsListTemplate = () => `<ul class="trip-events__list">

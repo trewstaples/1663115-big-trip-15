@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
-import { getRandomInteger, formatToFullDateAndTime, generateRandomOffersList } from '../utils.js';
+import { formatToFullDateAndTime, generateRandomOffersList } from '../utils.js/point.js';
 import { CITIES, DESCRIPTIONS } from '../consts.js';
+import { getRandomInteger } from '../utils.js/common';
 
 const MIX_BASE_PRICE = 20;
 const MAX_BASE_PRICE = 600;

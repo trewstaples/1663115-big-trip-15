@@ -1,5 +1,5 @@
 import { POINT_TYPES, CITIES } from '../consts.js';
-import { createTemplateFromItemsArray, formatToEditEventFormDatetime, generateOffersListByType } from '../utils.js';
+import { createTemplateFromItemsArray, formatToEditEventFormDatetime, generateOffersListByType } from '../utils.js/point.js';
 import AbstractView from './abstract.js';
 
 const destinationClassName = ({ description, pictures } = {}) => (!description && pictures && !pictures.length ? 'visually-hidden' : '');

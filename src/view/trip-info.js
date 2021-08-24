@@ -1,4 +1,4 @@
-import { formatToMonthAndDay } from '../utils.js';
+import { formatToMonthAndDay } from '../utils.js/point.js';
 import AbstractView from './abstract.js';
 
 const countTotalBasePrice = (points) => points.reduce((total, point) => total + point.basePrice, 0);

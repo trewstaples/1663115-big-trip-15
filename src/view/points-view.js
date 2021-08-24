@@ -1,4 +1,4 @@
-import { formatToFullDate, formatToMonthAndDay, formatToHoursAndMin, getDuration, createTemplateFromItemsArray } from '../utils.js';
+import { formatToFullDate, formatToMonthAndDay, formatToHoursAndMin, getDuration, createTemplateFromItemsArray } from '../utils.js/point.js';
 import AbstractView from './abstract.js';
 
 const createOfferTemplate = (offer) =>
