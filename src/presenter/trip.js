@@ -1,35 +1,29 @@
-import TripInfoView from './view/trip-info.js';
-import SiteMenuView from './view/site-menu.js';
-import TripFiltersView from './view/trip-filters.js';
+import NoPointView from './view/no-point.js';
 import TripSortView from './view/trip-sort.js';
 import TripPointsListView from './view/points-list.js';
 import { createPointsList } from './view/points-list.js';
 import TripEventEditView from './view/event-edit.js';
 import TripPointsView from './view/points-view.js';
 import { render, RenderPosition, replace } from './utils/render.js';
-import NoPointView from './view/no-point.js';
+
+const POINTS_COUNT = 10;
 
 class Trip {
-  constructor(tripContainer) {
-    this._tripListContainer = tripListContainer;
+  constructor(tripEventsContainer) {
+    this._tripEventsContainer = tripEventsContainer;
 
-    this._tripInfoComponent = new TripInfoView(points);
-    this._siteMenuComponent = new SiteMenuView();
-    this._tripFiltersComponent = new TripFiltersView();
     this._noPointComponent = new NoPointView();
     this._tripSortComponent = new TripSortView();
     this._tripPointsListComponent = new TripPointsListView();
   }
 
-  init(tripPoints) {
-    this._tripPoints = tripPoints;
+  init(points) {
+    this._points = points;
+
+    render(this._tripEventsContainer, this._tripPointsListComponent, RenderPosition.BEFOREEND);
+
+    this._renderTripEvents();
   }
-
-  _renderTripInfo() {}
-
-  _renderSiteMenu() {}
-
-  _renderFilters() {}
 
   _renderNoPoint() {}
 
@@ -39,5 +33,13 @@ class Trip {
 
   _renderPointList() {}
 
-  _renderTripSection() {}
+  _renderTripEvents() {
+    if (this._points.length === 0) {
+      this._renderNoPoint();
+      return;
+    }
+
+    this._renderSort();
+    this._renderPointList();
+  }
 }
