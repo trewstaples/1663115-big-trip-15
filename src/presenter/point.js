@@ -1,6 +1,6 @@
 import TripEventEditView from '../view/event-edit.js';
 import TripPointsView from '../view/points-view.js';
-import { render, RenderPosition, replace } from '../utils/render.js';
+import { render, RenderPosition, replace, remove } from '../utils/render.js';
 
 class Point {
   constructor(tripEventsListContainer) {
@@ -19,6 +19,9 @@ class Point {
   init(point) {
     this._point = point;
 
+    const prevPointListComponent = this._pointListComponent;
+    const prevPointEditComponent = this._pointEditComponent;
+
     this._pointListComponent = new TripPointsView(point);
     this._pointEditComponent = new TripEventEditView(point);
 
@@ -27,7 +30,26 @@ class Point {
     this._pointEditComponent.setEventResetHandler(this._handleEventReset);
     this._pointEditComponent.setEventRollUpHandler(this._handleEventRollUp);
 
-    render(this._tripEventsListContainer, this._pointListComponent, RenderPosition.BEFOREEND);
+    if (prevPointListComponent === null || prevPointEditComponent === null) {
+      render(this._tripEventsListContainer, this._pointListComponent, RenderPosition.BEFOREEND);
+      return;
+    }
+
+    if (this._tripEventsListContainer.getElement().contains(prevPointListComponent.getElement())) {
+      replace(this._pointListComponent, prevPointListComponent);
+    }
+
+    if (this._tripEventsListContainer.getElement().contains(prevPointEditComponent.getElement())) {
+      replace(this._pointEditComponent, prevPointEditComponent);
+    }
+
+    remove(prevPointListComponent);
+    remove(prevPointEditComponent);
+  }
+
+  destroy() {
+    remove(this._pointListComponent);
+    remove(this._pointEditComponent);
   }
 
   _replaceCardToForm() {
