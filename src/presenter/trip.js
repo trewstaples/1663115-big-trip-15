@@ -1,12 +1,9 @@
-import NoPointView from './view/no-point.js';
-import TripSortView from './view/trip-sort.js';
-import TripEventsListView from './view/points-list.js';
-import { createPointsList } from './view/points-list.js';
-import TripEventEditView from './view/event-edit.js';
-import TripPointsView from './view/points-view.js';
-import { render, RenderPosition, replace } from './utils/render.js';
-
-const POINTS_COUNT = 10;
+import NoPointView from '../view/no-point.js';
+import TripSortView from '../view/trip-sort.js';
+import TripEventsListView from '../view/points-list.js';
+import TripEventEditView from '../view/event-edit.js';
+import TripPointsView from '../view/points-view.js';
+import { render, RenderPosition, replace } from '../utils/render.js';
 
 class Trip {
   constructor(tripEventsContainer) {
@@ -30,7 +27,7 @@ class Trip {
   }
 
   _renderSort() {
-    render(this._tripEventsContainer, this._tripSortComponent, RenderPosition.BEFOREEND);
+    render(this._tripEventsContainer, this._tripSortComponent, RenderPosition.AFTERBEGIN);
   }
 
   _renderPoint(container, point) {
@@ -92,3 +89,5 @@ class Trip {
     this._renderPointList();
   }
 }
+
+export default Trip;
