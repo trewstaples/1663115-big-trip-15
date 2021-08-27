@@ -2,7 +2,7 @@ import TripInfoView from './view/trip-info.js';
 import SiteMenuView from './view/site-menu.js';
 import TripFiltersView from './view/trip-filters.js';
 import TripSortView from './view/trip-sort.js';
-import TripPointsListView from './view/points-list.js';
+import TripEventsListView from './view/points-list.js';
 import { createPointsList } from './view/points-list.js';
 import TripEventEditView from './view/event-edit.js';
 import TripPointsView from './view/points-view.js';
@@ -23,7 +23,7 @@ const siteMenuComponent = new SiteMenuView();
 const tripFiltersComponent = new TripFiltersView();
 const noPointComponent = new NoPointView();
 const tripSortComponent = new TripSortView();
-const tripPointsListComponent = new TripPointsListView();
+const tripEventsListComponent = new TripEventsListView();
 
 render(tripMain, tripInfoComponent, RenderPosition.AFTERBEGIN);
 render(tripNavigation, siteMenuComponent, RenderPosition.BEFOREEND);
@@ -33,7 +33,7 @@ if (points.length === 0) {
   render(tripEvents, noPointComponent, RenderPosition.BEFOREEND);
 } else {
   render(tripEvents, tripSortComponent, RenderPosition.BEFOREEND);
-  render(tripEvents, tripPointsListComponent, RenderPosition.BEFOREEND);
+  render(tripEvents, tripEventsListComponent, RenderPosition.BEFOREEND);
 
   const tripEventsList = tripEvents.querySelector('.trip-events__list');
 
