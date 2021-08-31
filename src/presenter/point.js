@@ -3,8 +3,9 @@ import TripPointsView from '../view/points-view.js';
 import { render, RenderPosition, replace, remove } from '../utils/render.js';
 
 class Point {
-  constructor(tripEventsListContainer) {
+  constructor(tripEventsListContainer, changeData) {
     this._tripEventsListContainer = tripEventsListContainer;
+    this._changeData = changeData;
 
     this._pointListComponent = null;
     this._pointEditComponent = null;
@@ -14,6 +15,7 @@ class Point {
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
     this._handleEventReset = this._handleEventReset.bind(this);
     this._handleEventRollUp = this._handleEventRollUp.bind(this);
+    this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
   }
 
   init(point) {
@@ -26,6 +28,7 @@ class Point {
     this._pointEditComponent = new TripEventEditView(point);
 
     this._pointListComponent.setEditClickHandler(this._handleEditClick);
+    this._pointListComponent.setFavoriteClickHandler(this._handleFavoriteClick);
     this._pointEditComponent.setFormSubmitHandler(this._handleFormSubmit);
     this._pointEditComponent.setEventResetHandler(this._handleEventReset);
     this._pointEditComponent.setEventRollUpHandler(this._handleEventRollUp);
@@ -71,6 +74,14 @@ class Point {
 
   _handleEditClick() {
     this._replaceCardToForm();
+  }
+
+  _handleFavoriteClick() {
+    this._changeData(
+      Object.assign({}, this._point, {
+        isFavorite: !this._point.isFavorite,
+      })
+    );
   }
 
   _handleFormSubmit() {
