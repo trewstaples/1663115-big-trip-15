@@ -6,7 +6,7 @@ import AbstractView from './abstract.js';
 const createTripEventsListTemplate = () => `<ul class="trip-events__list">
    </ul>`;
 const createPointsList = (pointsCount) => {
-  const points = new Array(pointsCount).fill(null).map((event, index) => generatePoint(generateEventType(), index));
+  const points = new Array(pointsCount).fill(null).map(() => generatePoint(generateEventType()));
   return points.sort((a, b) => dayjs(a.dateFrom) - dayjs(b.dateFrom));
 };
 
