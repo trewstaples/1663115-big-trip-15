@@ -14,6 +14,7 @@ class Trip {
     this._tripSortComponent = new TripSortView();
     this._tripEventsListComponent = new TripEventsListView();
     this._handlePointChange = this._handlePointChange.bind(this);
+    this._handleModeChange = this._handleModeChange.bind(this);
   }
 
   init(points) {
@@ -22,6 +23,10 @@ class Trip {
     render(this._tripEventsContainer, this._tripEventsListComponent, RenderPosition.BEFOREEND);
 
     this._renderTripEvents();
+  }
+
+  _handleModeChange() {
+    this._pointPresenter.forEach((presenter) => presenter.resetView());
   }
 
   _handlePointChange(updatedPoint) {
@@ -38,7 +43,7 @@ class Trip {
   }
 
   _renderPoint(container, point) {
-    const pointPresenter = new PointPresenter(container, this._handlePointChange);
+    const pointPresenter = new PointPresenter(container, this._handlePointChange, this._handleModeChange);
     pointPresenter.init(point);
     this._pointPresenter.set(point.id, pointPresenter);
   }
