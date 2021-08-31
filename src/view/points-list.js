@@ -3,18 +3,18 @@ import { generateEventType } from '../utils/point.js';
 import { generatePoint } from '../mock/points.js';
 import AbstractView from './abstract.js';
 
-const createPointsListTemplate = () => `<ul class="trip-events__list">
+const createTripEventsListTemplate = () => `<ul class="trip-events__list">
    </ul>`;
 const createPointsList = (pointsCount) => {
-  const points = new Array(pointsCount).fill(null).map((event, index) => generatePoint(generateEventType(), index));
+  const points = new Array(pointsCount).fill(null).map(() => generatePoint(generateEventType()));
   return points.sort((a, b) => dayjs(a.dateFrom) - dayjs(b.dateFrom));
 };
 
-class TripPointsList extends AbstractView {
+class TripEventsList extends AbstractView {
   getTemplate() {
-    return createPointsListTemplate();
+    return createTripEventsListTemplate();
   }
 }
 
 export { createPointsList };
-export default TripPointsList;
+export default TripEventsList;

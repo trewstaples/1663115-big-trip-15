@@ -42,11 +42,20 @@ const replace = (newChild, oldChild) => {
 
   const parent = oldChild.parentElement;
 
-  if (parent === null || oldChild === null || newChild === null) {
+  if (!parent || !oldChild || !newChild) {
     throw new Error('Cannot replace unexisting elements');
   }
 
   parent.replaceChild(newChild, oldChild);
 };
 
-export { RenderPosition, render, createElement, replace };
+const remove = (component) => {
+  if (!(component instanceof Abstract)) {
+    throw new Error('Can remove only components');
+  }
+
+  component.getElement().remove();
+  component.removeElement();
+};
+
+export { RenderPosition, render, createElement, replace, remove };

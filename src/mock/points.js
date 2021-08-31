@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { nanoid } from 'nanoid';
 import { formatToFullDateAndTime, generateRandomOffersList } from '../utils/point.js';
 import { CITIES, DESCRIPTIONS } from '../consts.js';
 import { getRandomInteger } from '../utils/common';
@@ -24,7 +25,7 @@ const generatePictures = (amount) =>
     description: 'Picture description',
   }));
 
-const generatePoint = (type, index) => {
+const generatePoint = (type) => {
   const dateFrom = generateDateFrom();
   const dateTo = dateFrom.add(getRandomInteger(MIN_MINUTES_GAP, MAX_MINUTES_GAP), 'minute');
 
@@ -37,7 +38,7 @@ const generatePoint = (type, index) => {
       name: generateDestinationValue(CITIES),
       pictures: generatePictures(getRandomInteger(MIN_PICTURES_VALUE, MAX_PICTURES_VALUE)),
     },
-    index,
+    id: nanoid(),
     isFavorite: Boolean(getRandomInteger()),
     offers: generateRandomOffersList(type),
     type,
