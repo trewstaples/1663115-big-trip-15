@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 import { POINT_TYPES, OffersPriceList } from '../consts.js';
 import { getRandomInteger } from './common.js';
 
-
 const MILLISECONDS_IN_DAY = 86400000;
 const MILLISECONDS_IN_HOUR = 3600000;
 const MILLISECONDS_IN_MINUTE = 60000;
@@ -70,4 +69,14 @@ const getDuration = (from, to) => {
   return dayjs(duration).subtract(DURATION_DAY, 'day').format(formatString);
 };
 
-export { formatToFullDateAndTime, formatToMonthAndDay, formatToFullDate, formatToHoursAndMin, generateEventType, formatToEditEventFormDatetime, generateOffersListByType, createTemplateFromItemsArray, generateRandomOffersList, getDuration };
+const sortPointDay = (pointA, pointB) => dayjs(pointA.dateFrom).diff(dayjs(pointB.dateFrom));
+
+const sortPointPrice = (pointA, pointB) => pointB.basePrice - pointA.basePrice;
+
+const sortPointTime = (pointA, pointB) => {
+  const durationA = dayjs(pointA.dateTo).diff(pointA.dateFrom, 'millisecond');
+  const durationB = dayjs(pointB.dateTo).diff(pointB.dateFrom, 'millisecond');
+  return durationB - durationA;
+};
+
+export { formatToFullDateAndTime, formatToMonthAndDay, formatToFullDate, formatToHoursAndMin, generateEventType, formatToEditEventFormDatetime, generateOffersListByType, createTemplateFromItemsArray, generateRandomOffersList, getDuration, sortPointDay, sortPointPrice, sortPointTime };

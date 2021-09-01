@@ -43,4 +43,10 @@ const OffersPriceList = {
   },
 };
 
-export { CITIES, DESCRIPTIONS, POINT_TYPES, OffersPriceList };
+const SortType = {
+  DAY: 'sort-day',
+  TIME: 'sort-time',
+  PRICE: 'sort-price',
+};
+
+export { CITIES, DESCRIPTIONS, POINT_TYPES, OffersPriceList, SortType };
