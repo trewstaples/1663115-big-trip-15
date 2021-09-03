@@ -1,6 +1,6 @@
 import { POINT_TYPES, CITIES } from '../consts.js';
 import { createTemplateFromItemsArray, formatToEditEventFormDatetime, generateOffersListByType } from '../utils/point.js';
-import AbstractView from './abstract.js';
+import SmartView from './smart.js';
 
 const destinationClassName = ({ description, pictures } = {}) => (!description && pictures && !pictures.length ? 'visually-hidden' : '');
 const getCheckedOfferTitles = (offers) => offers.map((offer) => offer.title);
@@ -123,7 +123,7 @@ const createEditEventFormTemplate = (point = []) => {
           </li>`;
 };
 
-class TripEventEdit extends AbstractView {
+class TripEventEdit extends SmartView {
   constructor(point) {
     super();
     this._edits = point;
