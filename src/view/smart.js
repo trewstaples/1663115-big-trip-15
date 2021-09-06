@@ -27,8 +27,7 @@ class Smart extends Abstract {
 
     const newElement = this.getElement();
 
-    parent.replaceChild;
-    newElement, prevElement;
+    parent.replaceChild(newElement, prevElement);
 
     this.restoreHandlers();
   }
