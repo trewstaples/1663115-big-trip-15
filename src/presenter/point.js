@@ -84,6 +84,7 @@ class Point {
   _escKeyDownHandler(evt) {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
+      this._pointEditComponent.reset(this._point);
       this._replaceFormToCard();
     }
   }
@@ -105,10 +106,12 @@ class Point {
   }
 
   _handleEventReset() {
+    this._pointEditComponent.reset(this._point);
     this._replaceFormToCard();
   }
 
   _handleEventRollUp() {
+    this._pointEditComponent.reset(this._point);
     this._replaceFormToCard();
   }
 }

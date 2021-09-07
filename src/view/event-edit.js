@@ -127,6 +127,10 @@ class TripEventEdit extends SmartView {
     this._setInnerHandlers();
   }
 
+  reset(point) {
+    this.updateData(TripEventEdit.parsePointToData(point));
+  }
+
   getTemplate() {
     return createEditEventFormTemplate(this._data);
   }
