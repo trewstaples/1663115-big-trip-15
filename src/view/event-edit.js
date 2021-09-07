@@ -147,7 +147,7 @@ class TripEventEdit extends SmartView {
     this.updateData({
       type: evt.target.value,
       offers: [],
-      isOffersAvailable: evt.target.value in OffersPriceList,
+      isOffers: evt.target.value in OffersPriceList,
     });
   }
 
