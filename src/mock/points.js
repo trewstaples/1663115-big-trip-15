@@ -45,4 +45,4 @@ const generatePoint = (type) => {
   };
 };
 
-export { generatePoint, getRandomInteger };
+export { generatePoint, getRandomInteger, generateDestinationValue, generatePictures, MIN_PICTURES_VALUE, MAX_PICTURES_VALUE };
