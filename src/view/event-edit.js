@@ -1,7 +1,9 @@
 import { POINT_TYPES, CITIES, DESCRIPTIONS, OffersPriceList } from '../consts.js';
-import { createTemplateFromItemsArray, formatToEditEventFormDatetime, generateOffersListByType } from '../utils/point.js';
+import { createTemplateFromItemsArray, formatToEditEventFormDatetime, generateOffersListByType, formatToFullDateAndTime } from '../utils/point.js';
 import SmartView from './smart.js';
 import { getRandomInteger, generateDestinationValue, generatePictures, MIN_PICTURES_VALUE, MAX_PICTURES_VALUE } from '../mock/points.js';
+import flatpickr from 'flatpickr';
+import '../../node_modules/flatpickr/dist/flatpickr.min.css';
 
 const getCheckedOfferTitles = (offers) => offers.map((offer) => offer.title);
 const checkedAttribute = (isChecked) => (isChecked ? 'checked' : '');
@@ -117,14 +119,45 @@ class TripEventEdit extends SmartView {
   constructor(point) {
     super();
     this._data = TripEventEdit.parsePointToData(point);
+    this._datepickerFrom = null;
+    this._datepickerTo = null;
+
+    this._dateFromChangeHandler = this._dateFromChangeHandler.bind(this);
+    this._dateToChangeHandler = this._dateToChangeHandler.bind(this);
+    this._eventTypeChangeHandler = this._eventTypeChangeHandler.bind(this);
+    this._eventDestinationChangeHandler = this._eventDestinationChangeHandler.bind(this);
 
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
     this._eventResetHandler = this._eventResetHandler.bind(this);
     this._eventRollUpHandler = this._eventRollUpHandler.bind(this);
-    this._eventTypeChangeHandler = this._eventTypeChangeHandler.bind(this);
-    this._eventDestinationChangeHandler = this._eventDestinationChangeHandler.bind(this);
 
     this._setInnerHandlers();
+    this._setDatepickers();
+  }
+
+  _setDatepickers() {
+    if (this._datepickerFrom) {
+      this._datepickerFrom.destroy();
+      this._datepickerFrom = null;
+    }
+    if (this._datepickerTo) {
+      this._datepickerTo.destroy();
+      this._datepickerTo = null;
+    }
+    this._datepickerFrom = flatpickr(this.getElement().querySelector('#event-start-time-1'), {
+      dateFormat: 'd/m/Y H:i',
+      enableTime: true,
+      defaultDate: new Date(this._data.dateFrom),
+      maxDate: new Date(this._data.dateTo),
+      onChange: this._dateFromChangeHandler,
+    });
+    this._datepickerTo = flatpickr(this.getElement().querySelector('#event-end-time-1'), {
+      dateFormat: 'd/m/Y H:i',
+      enableTime: true,
+      defaultDate: new Date(this._data.dateTo),
+      minDate: new Date(this._data.dateFrom),
+      onChange: this._dateToChangeHandler,
+    });
   }
 
   reset(point) {
@@ -137,6 +170,7 @@ class TripEventEdit extends SmartView {
 
   restoreHandlers() {
     this._setInnerHandlers();
+    this._setDatepickers();
     this.setFormSubmitHandler(this._callback.formSubmit);
     this.setEventResetHandler(this._callback.eventReset);
     this.setEventRollUpHandler(this._callback.eventRollUp);
@@ -145,6 +179,18 @@ class TripEventEdit extends SmartView {
   _setInnerHandlers() {
     this.getElement().querySelector('.event__type-group').addEventListener('change', this._eventTypeChangeHandler);
     this.getElement().querySelector('.event__input--destination').addEventListener('change', this._eventDestinationChangeHandler);
+  }
+
+  _dateFromChangeHandler([userDate]) {
+    this.updateData({
+      dateFrom: formatToFullDateAndTime(userDate),
+    });
+  }
+
+  _dateToChangeHandler([userDate]) {
+    this.updateData({
+      dateTo: formatToFullDateAndTime(userDate),
+    });
   }
 
   _eventTypeChangeHandler(evt) {
