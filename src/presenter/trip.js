@@ -8,7 +8,8 @@ import { SortType } from '../consts.js';
 import { sortPointDay, sortPointPrice, sortPointTime } from '../utils/point.js';
 
 class Trip {
-  constructor(tripEventsContainer) {
+  constructor(tripEventsContainer, pointsModel) {
+    this._pointsModel = pointsModel;
     this._tripEventsContainer = tripEventsContainer;
     this._pointPresenter = new Map();
     this._currentSortType = SortType.DAY;
@@ -29,6 +30,10 @@ class Trip {
     render(this._tripEventsContainer, this._tripEventsListComponent, RenderPosition.BEFOREEND);
 
     this._renderTripEvents();
+  }
+
+  _getPoints() {
+    this._pointsModel.getPoints();
   }
 
   _handleModeChange() {

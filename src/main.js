@@ -4,10 +4,14 @@ import TripFiltersView from './view/trip-filters.js';
 import { createPointsList } from './view/points-list.js';
 import { render, RenderPosition } from './utils/render.js';
 import TripPresenter from './presenter/trip.js';
+import PointsModel from './model/points.js';
 
 const POINTS_COUNT = 10;
 
 const points = createPointsList(POINTS_COUNT);
+
+const pointsModel = new PointsModel();
+pointsModel.setPoints(points);
 
 const tripMain = document.querySelector('.trip-main');
 const tripNavigation = tripMain.querySelector('.trip-controls__navigation');
@@ -22,5 +26,5 @@ render(tripMain, tripInfoComponent, RenderPosition.AFTERBEGIN);
 render(tripNavigation, siteMenuComponent, RenderPosition.BEFOREEND);
 render(tripFilters, tripFiltersComponent, RenderPosition.BEFOREEND);
 
-const tripPresenter = new TripPresenter(tripEvents);
+const tripPresenter = new TripPresenter(tripEvents, pointsModel);
 tripPresenter.init(points);
