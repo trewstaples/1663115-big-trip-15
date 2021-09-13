@@ -27,4 +27,4 @@ render(tripNavigation, siteMenuComponent, RenderPosition.BEFOREEND);
 render(tripFilters, tripFiltersComponent, RenderPosition.BEFOREEND);
 
 const tripPresenter = new TripPresenter(tripEvents, pointsModel);
-tripPresenter.init(points);
+tripPresenter.init();
